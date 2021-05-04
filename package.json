@@ -1,0 +1,225 @@
+{
+	"name": "http-server",
+	"displayName": "http-server",
+	"description": "html预览",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.55.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "images/httpserver.png",
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"publisher": "zt5",
+	"repository": "https://github.com/zt5/http-server",
+	"contributes": {
+		"commands": [
+			{
+				"command": "http-server.showMenu",
+				"title": "显示插件菜单",
+				"icon": "./images/httpserver.svg"
+			},
+			{
+				"command": "http-server.openWithInternalExplorer",
+				"title": "使用 Internal Explorer 打开",
+				"icon": "./images/ie/ie.ico"
+			},
+			{
+				"command": "http-server.openWithFirefox",
+				"title": "使用 Firefox 打开",
+				"icon": "./images/firefox/firefox.ico"
+			},
+			{
+				"command": "http-server.openWithFirefoxDeveloper",
+				"title": "使用 Firefox Developer 打开",
+				"icon": "./images/firefox/firefox_developer.ico"
+			},
+			{
+				"command": "http-server.openWithFirefoxNightly",
+				"title": "使用 Firefox Nightly 打开",
+				"icon": "./images/firefox/firefox_nightly.ico"
+			},
+			{
+				"command": "http-server.openWithChrome",
+				"title": "使用 Chrome 打开",
+				"icon": "./images/chrome/chrome.ico"
+			},
+			{
+				"command": "http-server.openWithChromeDeveloper",
+				"title": "使用 Chrome Developer打开",
+				"icon": "./images/chrome/chrome_delveloper.ico"
+			},
+			{
+				"command": "http-server.openWithChromeCanary",
+				"title": "使用 Chrome Canary打开",
+				"icon": "./images/chrome/chrome_canary.ico"
+			},
+			{
+				"command": "http-server.openWithEdge",
+				"title": "使用 Edge 打开",
+				"icon": "./images/edge/edge.ico"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "http-server.openWithInternalExplorer",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefox",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChrome",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithEdge",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "http-server.openWithInternalExplorer",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefox",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChrome",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithEdge",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "http-server.openWithInternalExplorer",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefox",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChrome",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithEdge",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "http-server.openWithInternalExplorer",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefox",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChrome",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithEdge",
+					"when": "resourceExtname == .html",
+					"group": "navigation"
+				}
+			]
+		},
+		"configuration": {
+			"type": "object",
+			"title": "Http Server",
+			"properties": {
+				"http-server.devlog": {
+					"type": "boolean",
+					"default": false,
+					"description": "是否打印详细日志"
+				},
+				"http-server.firefoxType": {
+					"type": "string",
+					"default": "normal",
+					"enum": [
+						"normal",
+						"developer",
+						"nightly"
+					],
+					"enumDescriptions": [
+						"运行Firefox正式版",
+						"运行Firefox开发者版(https://www.mozilla.org/zh-CN/firefox/all/#product-desktop-developer)",
+						"运行Firefox Nightly版本(https://www.mozilla.org/zh-CN/firefox/all/#product-desktop-nightly)"
+					],
+					"description": "firefox运行的版本"
+				},
+				"http-server.chromeType": {
+					"type": "string",
+					"default": "normal",
+					"enum": [
+						"normal",
+						"developer",
+						"canary"
+					],
+					"enumDescriptions": [
+						"运行Chrome正式版",
+						"运行Chrome开发者版(https://www.google.cn/chrome/dev/)",
+						"运行Chrome每日构建版(https://www.google.cn/intl/zh-CN/chrome/canary/)"
+					],
+					"description": "chrome运行的版本"
+				},
+				"http-server.port": {
+					"type": "number",
+					"description": "服务器首选端口",
+					"default": 7000
+				}
+			}
+		}
+	},
+	"scripts": {
+		"package": "vsce package",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.55.0",
+		"@typescript-eslint/eslint-plugin": "^4.14.1",
+		"@typescript-eslint/parser": "^4.14.1",
+		"eslint": "^7.19.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.2.1",
+		"typescript": "^4.1.3",
+		"vsce": "^1.88.0"
+	},
+	"dependencies": {
+		"tree-kill": "^1.2.2"
+	}
+}
