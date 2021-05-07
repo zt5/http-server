@@ -1,8 +1,8 @@
 {
 	"name": "http-server",
-	"displayName": "http-server",
-	"description": "html预览",
-	"version": "0.0.1",
+	"displayName": "Http Server",
+	"description": "在vscode中快速选择Chrome,Firefox,Microsoft Edge,Ie浏览器打开html",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -26,42 +26,42 @@
 			{
 				"command": "http-server.openWithInternalExplorer",
 				"title": "使用 Internal Explorer 打开",
-				"icon": "./images/ie/ie.ico"
+				"icon": "./images/ie/ie.png"
 			},
 			{
 				"command": "http-server.openWithFirefox",
 				"title": "使用 Firefox 打开",
-				"icon": "./images/firefox/firefox.ico"
+				"icon": "./images/firefox/firefox.png"
 			},
 			{
 				"command": "http-server.openWithFirefoxDeveloper",
 				"title": "使用 Firefox Developer 打开",
-				"icon": "./images/firefox/firefox_developer.ico"
+				"icon": "./images/firefox/firefox_developer.png"
 			},
 			{
 				"command": "http-server.openWithFirefoxNightly",
 				"title": "使用 Firefox Nightly 打开",
-				"icon": "./images/firefox/firefox_nightly.ico"
+				"icon": "./images/firefox/firefox_nightly.png"
 			},
 			{
 				"command": "http-server.openWithChrome",
 				"title": "使用 Chrome 打开",
-				"icon": "./images/chrome/chrome.ico"
+				"icon": "./images/chrome/chrome.png"
 			},
 			{
 				"command": "http-server.openWithChromeDeveloper",
 				"title": "使用 Chrome Developer打开",
-				"icon": "./images/chrome/chrome_delveloper.ico"
+				"icon": "./images/chrome/chrome_developer.png"
 			},
 			{
 				"command": "http-server.openWithChromeCanary",
 				"title": "使用 Chrome Canary打开",
-				"icon": "./images/chrome/chrome_canary.ico"
+				"icon": "./images/chrome/chrome_canary.png"
 			},
 			{
 				"command": "http-server.openWithEdge",
 				"title": "使用 Edge 打开",
-				"icon": "./images/edge/edge.ico"
+				"icon": "./images/edge/edge.png"
 			}
 		],
 		"menus": {
@@ -73,12 +73,32 @@
 				},
 				{
 					"command": "http-server.openWithFirefox",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxDeveloper",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxNightly",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'nightly'",
 					"group": "navigation"
 				},
 				{
 					"command": "http-server.openWithChrome",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeDeveloper",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeCanary",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'canary'",
 					"group": "navigation"
 				},
 				{
@@ -95,12 +115,32 @@
 				},
 				{
 					"command": "http-server.openWithFirefox",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxDeveloper",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxNightly",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'nightly'",
 					"group": "navigation"
 				},
 				{
 					"command": "http-server.openWithChrome",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeDeveloper",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeCanary",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'canary'",
 					"group": "navigation"
 				},
 				{
@@ -117,12 +157,32 @@
 				},
 				{
 					"command": "http-server.openWithFirefox",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxDeveloper",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxNightly",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'nightly'",
 					"group": "navigation"
 				},
 				{
 					"command": "http-server.openWithChrome",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeDeveloper",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeCanary",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'canary'",
 					"group": "navigation"
 				},
 				{
@@ -139,12 +199,32 @@
 				},
 				{
 					"command": "http-server.openWithFirefox",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxDeveloper",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithFirefoxNightly",
+					"when": "resourceExtname == .html && config.http-server.firefoxType == 'nightly'",
 					"group": "navigation"
 				},
 				{
 					"command": "http-server.openWithChrome",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'normal'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeDeveloper",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'developer'",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithChromeCanary",
+					"when": "resourceExtname == .html && config.http-server.chromeType == 'canary'",
 					"group": "navigation"
 				},
 				{

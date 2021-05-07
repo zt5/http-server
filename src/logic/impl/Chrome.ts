@@ -26,7 +26,9 @@ export default class Chrome extends Browser {
                 break;
             case ChromeType.canary:
                 if (platformType === Platform.OSX) {
-                    //TODO
+                    return [
+                        "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+                    ]
                 } else if (platformType === Platform.Windows) {
                     return [
                         join(Helper.getWinAppDataDir(), 'Google\\Chrome SxS\\Application\\chrome.exe'),
@@ -37,7 +39,9 @@ export default class Chrome extends Browser {
                 break;
             case ChromeType.developer:
                 if (platformType === Platform.OSX) {
-                    //TODO
+                    return [
+                        "/Applications/Google Chrome Dev.app/Contents/MacOS/Google Chrome Dev"
+                    ]
                 } else if (platformType === Platform.Windows) {
                     return [
                         'C:\\Program Files\\Google\\Chrome Dev\\Application\\chrome.exe',

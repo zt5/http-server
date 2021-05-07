@@ -22,35 +22,35 @@ export default class Logic extends Listener {
 
         this.addListener(vscode.commands.registerCommand(Command.OPEN_FIREFOX, (args) => {
             this.logger.debug(`call ${Command.OPEN_FIREFOX}`, args);
-            if (args && args.fsPath) {
-                this._indexPath = args.fsPath;
-                this._prevType = BrowserType.FireFox;
-                this._webServer.start();
-            }
+            this.startWebServer(args, BrowserType.FireFox);
+        }));
+        this.addListener(vscode.commands.registerCommand(Command.OPEN_FIREFOX_DEVELOPER, (args) => {
+            this.logger.debug(`call ${Command.OPEN_FIREFOX_DEVELOPER}`, args);
+            this.startWebServer(args, BrowserType.FireFox);
+        }));
+        this.addListener(vscode.commands.registerCommand(Command.OPEN_FIREFOX_NIGHTLY, (args) => {
+            this.logger.debug(`call ${Command.OPEN_FIREFOX_NIGHTLY}`, args);
+            this.startWebServer(args, BrowserType.FireFox);
         }));
         this.addListener(vscode.commands.registerCommand(Command.OPEN_CHROME, (args) => {
             this.logger.debug(`call ${Command.OPEN_CHROME}`, args);
-            if (args && args.fsPath) {
-                this._indexPath = args.fsPath;
-                this._prevType = BrowserType.Chrome;
-                this._webServer.start();
-            }
+            this.startWebServer(args, BrowserType.Chrome);
+        }));
+        this.addListener(vscode.commands.registerCommand(Command.OPEN_CHROME_DEVELOPER, (args) => {
+            this.logger.debug(`call ${Command.OPEN_CHROME_DEVELOPER}`, args);
+            this.startWebServer(args, BrowserType.Chrome);
+        }));
+        this.addListener(vscode.commands.registerCommand(Command.OPEN_CHROME_CANARY, (args) => {
+            this.logger.debug(`call ${Command.OPEN_CHROME_CANARY}`, args);
+            this.startWebServer(args, BrowserType.Chrome);
         }));
         this.addListener(vscode.commands.registerCommand(Command.OPEN_EDGE, (args) => {
             this.logger.debug(`call ${Command.OPEN_EDGE}`, args);
-            if (args && args.fsPath) {
-                this._indexPath = args.fsPath;
-                this._prevType = BrowserType.Edge;
-                this._webServer.start();
-            }
+            this.startWebServer(args, BrowserType.Edge);
         }));
         this.addListener(vscode.commands.registerCommand(Command.OPEN_INTERNAL_EXPLORER, (args) => {
             this.logger.debug(`call ${Command.OPEN_INTERNAL_EXPLORER}`, args);
-            if (args && args.fsPath) {
-                this._indexPath = args.fsPath;
-                this._prevType = BrowserType.Ie;
-                this._webServer.start();
-            }
+            this.startWebServer(args, BrowserType.Ie);
         }));
         this.addListener(vscode.commands.registerCommand(Command.SERVER_RESTART, (args: string[]) => {
             this.logger.debug(`call ${Command.SERVER_RESTART}`);
@@ -65,6 +65,13 @@ export default class Logic extends Listener {
 
         //     } 
         // }))
+    }
+    private startWebServer(args: { fsPath: string }, type: BrowserType) {
+        if (args && args.fsPath) {
+            this._indexPath = args.fsPath;
+            this._prevType = type;
+            this._webServer.start();
+        }
     }
     public get prevType() {
         return this._prevType;

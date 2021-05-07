@@ -9,9 +9,12 @@ export default class Edge extends Browser {
         const platformType = Helper.getPlatform();
 
         if (platformType === Platform.OSX) {
-            //TODO
+            return [
+                "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+            ]
         } else if (platformType === Platform.Windows) {
             return [
+                'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
                 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
             ]
         } else {
