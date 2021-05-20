@@ -5,11 +5,12 @@ export default abstract class BrowserCmd extends Browser {
     public async run(url: string) {
         await this.clear();
         this.url = url;
-        if (!this.execPath || this.execPath.length) {
+        const execPath = this.execPath;
+        if (!execPath || execPath.length == 0) {
             vscode.window.showErrorMessage(`没有可运行的命令`);
             return;
         }
-        this.progress = spawn(this.execPath[0], this.execPath.slice(1), { detached: true, stdio: 'ignore' });
+        this.progress = spawn(execPath[0], execPath.slice(1), { detached: true, stdio: 'ignore' });
         if (this.progress) {
             this.progress.unref();
             this.progress.on("close", this.closeHandler);
