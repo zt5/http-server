@@ -1,8 +1,8 @@
 import { FirefoxType, Platform } from "../../common/define";
 import Helper from "../../common/Helper";
-import Browser from "./Browser";
+import BrowserPath from "./BrowserPath";
 
-export default class Firefox extends Browser {
+export default class Firefox extends BrowserPath {
     protected get execPath(): string[] {
         const browserType = Helper.getConfigObj().firefoxType;
         const platformType = Helper.getPlatform();
@@ -15,6 +15,10 @@ export default class Firefox extends Browser {
                         'C:\\Program Files\\Mozilla Firefox\\firefox.exe',
                         'C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe'
                     ];
+                }else{
+                    return [
+                        "/usr/bin/firefox"
+                    ]
                 }
                 break;
 

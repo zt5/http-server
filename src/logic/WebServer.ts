@@ -1,11 +1,9 @@
 import * as path from "path";
-import { BrowserType, ServiceStatus, HttpMsgType } from "../common/define";
+import { HttpMsgType, ServiceStatus } from "../common/define";
 import HttpServer from '../common/HttpServer';
 import { getLogger, Logger, showLog } from "../common/Logger";
 import Browser from "./impl/Browser";
 import BrowserFactory from "./impl/BrowserFactory";
-import Chrome from "./impl/Chrome";
-import Firefox from "./impl/Firefox";
 import Logic from "./Logic";
 
 export default class WebServer {

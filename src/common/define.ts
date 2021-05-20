@@ -34,7 +34,8 @@ export enum BrowserType {
     FireFox = "firefox",
     Edge = "edge",
     Chrome = "chrome",
-    Ie = "ie"
+    Ie = "ie",
+    Safari = "safari"
 }
 export interface ConfigObj extends vscode.WorkspaceConfiguration {
     /**打印详细日志*/

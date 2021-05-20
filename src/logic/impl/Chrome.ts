@@ -1,9 +1,9 @@
 import { join } from "path";
 import { ChromeType, Platform } from "../../common/define";
 import Helper from "../../common/Helper";
-import Browser from "./Browser";
+import BrowserPath from "./BrowserPath";
 
-export default class Chrome extends Browser {
+export default class Chrome extends BrowserPath {
     protected get execPath(): string[] {
         const browserType = Helper.getConfigObj().chromeType;
 

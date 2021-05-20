@@ -1,8 +1,8 @@
 {
 	"name": "http-server",
 	"displayName": "Http Server",
-	"description": "在vscode中快速选择Chrome,Firefox,Microsoft Edge,Ie浏览器打开html",
-	"version": "0.0.2",
+	"description": "在vscode中快速选择Chrome,Firefox,Microsoft Edge,Ie(仅在Windows平台有效),Safari(仅在Mac平台有效)浏览器打开html",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -62,13 +62,18 @@
 				"command": "http-server.openWithEdge",
 				"title": "使用 Edge 打开",
 				"icon": "./images/edge/edge.png"
+			},
+			{
+				"command": "http-server.openWithSafari",
+				"title": "使用 Safari 打开",
+				"icon": "./images/safari/safari.png"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
 					"command": "http-server.openWithInternalExplorer",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && isWindows",
 					"group": "navigation"
 				},
 				{
@@ -104,13 +109,18 @@
 				{
 					"command": "http-server.openWithEdge",
 					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithSafari",
+					"when": "resourceExtname == .html && isMac",
 					"group": "navigation"
 				}
 			],
 			"editor/context": [
 				{
 					"command": "http-server.openWithInternalExplorer",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && isWindows",
 					"group": "navigation"
 				},
 				{
@@ -146,13 +156,18 @@
 				{
 					"command": "http-server.openWithEdge",
 					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithSafari",
+					"when": "resourceExtname == .html && isMac",
 					"group": "navigation"
 				}
 			],
 			"editor/title": [
 				{
 					"command": "http-server.openWithInternalExplorer",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && isWindows",
 					"group": "navigation"
 				},
 				{
@@ -188,13 +203,18 @@
 				{
 					"command": "http-server.openWithEdge",
 					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithSafari",
+					"when": "resourceExtname == .html && isMac",
 					"group": "navigation"
 				}
 			],
 			"editor/title/context": [
 				{
 					"command": "http-server.openWithInternalExplorer",
-					"when": "resourceExtname == .html",
+					"when": "resourceExtname == .html && isWindows",
 					"group": "navigation"
 				},
 				{
@@ -230,6 +250,11 @@
 				{
 					"command": "http-server.openWithEdge",
 					"when": "resourceExtname == .html",
+					"group": "navigation"
+				},
+				{
+					"command": "http-server.openWithSafari",
+					"when": "resourceExtname == .html && isMac",
 					"group": "navigation"
 				}
 			]

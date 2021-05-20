@@ -52,6 +52,10 @@ export default class Logic extends Listener {
             this.logger.debug(`call ${Command.OPEN_INTERNAL_EXPLORER}`, args);
             this.startWebServer(args, BrowserType.Ie);
         }));
+        this.addListener(vscode.commands.registerCommand(Command.OPEN_SAFARI, (args) => {
+            this.logger.debug(`call ${Command.OPEN_SAFARI}`, args);
+            this.startWebServer(args, BrowserType.Safari);
+        }));
         this.addListener(vscode.commands.registerCommand(Command.SERVER_RESTART, (args: string[]) => {
             this.logger.debug(`call ${Command.SERVER_RESTART}`);
             if (!this._indexPath) return;

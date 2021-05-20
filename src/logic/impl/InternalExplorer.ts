@@ -1,8 +1,8 @@
 import { Platform } from "../../common/define";
 import Helper from "../../common/Helper";
-import Browser from "./Browser";
+import BrowserPath from "./BrowserPath";
 
-export default class InternalExplorer extends Browser {
+export default class InternalExplorer extends BrowserPath {
     protected get execPath(): string[] {
         // C:\Program Files (x86)\Microsoft\Edge\Application
 

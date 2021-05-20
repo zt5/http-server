@@ -1,53 +1,24 @@
-import { ChildProcess, spawn } from "child_process";
-import { existsSync, statSync } from "fs";
+import { ChildProcess } from "child_process";
 import * as treekill from "tree-kill";
-import * as vscode from "vscode";
 import { getLogger, Logger } from "../../common/Logger";
 import WebServer from "../WebServer";
 export default abstract class Browser {
-    private progress: ChildProcess | undefined;
-    private logger: Logger;
+    protected progress: ChildProcess | undefined;
+    protected logger: Logger;
+    protected url: string = "";
     public father: WebServer | undefined
     constructor() {
         this.logger = getLogger(this);
     }
     protected abstract get execPath(): string[];
-    public async run(url: string) {
-        await this.clear();
-        const execPaths = this.execPath;
-        let execPath: string | undefined;
-        for (let str of execPaths) {
-            if (existsSync(str)) {
-                execPath = str;
-                break;
-            }
-        }
-        if (!execPath) {
-            vscode.window.showErrorMessage(`未安装浏览器`);
-            return;
-        }
-        else if (!existsSync(execPath)) {
-            vscode.window.showErrorMessage(`路径: ${execPath} 不存在`);
-            return;
-        } else if (statSync(execPath).isDirectory()) {
-            vscode.window.showErrorMessage(`路径: ${execPath} 不能是目录`);
-            return;
-        }
-        this.progress = spawn(execPath, [url], { detached: true, stdio: 'ignore' });
-        if (this.progress) {
-            this.progress.unref();
-            this.progress.on("close", this.closeHandler);
-            this.progress.on("error", this.errorHandler);
-            this.progress.on("exit", this.exitHandler);
-        }
-    }
-    private exitHandler = (...args: any[]) => {
+    public abstract run(url: string): Promise<void>;
+    protected exitHandler = (...args: any[]) => {
         this.logger.debug(...args)
     }
-    private errorHandler = (err: Error) => {
+    protected errorHandler = (err: Error) => {
         this.logger.error(err)
     }
-    private closeHandler = (code: number, signal: NodeJS.Signals) => {
+    protected closeHandler = (code: number, signal: NodeJS.Signals) => {
         this.logger.debug("exit: ", code, signal)
     }
     public async destroy() {

@@ -7,5 +7,6 @@ export class Command {
     public static OPEN_CHROME_DEVELOPER = "http-server.openWithChromeDeveloper";
     public static OPEN_CHROME_CANARY = "http-server.openWithChromeCanary";
     public static OPEN_EDGE = "http-server.openWithEdge";
+    public static OPEN_SAFARI = "http-server.openWithSafari";
     public static SERVER_RESTART = "http-server.restart";
 }

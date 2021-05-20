@@ -2,7 +2,7 @@
 [建议和bug反馈](https://github.com/zt5/http-server/issues/new)
 
 ## 特性
-- 快速使用Chrome,Firefox,Ie,Microsoft Edge预览html文件
+- 在vscode中快速选择Chrome,Firefox,Microsoft Edge,Ie(仅在Windows平台有效),Safari(仅在Mac平台有效)浏览器打开html
 - 设置中可以选择 Chrome,Firefox的特殊版本
 
 ## 如何使用

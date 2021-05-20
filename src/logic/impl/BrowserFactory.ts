@@ -4,6 +4,7 @@ import Chrome from "./Chrome";
 import Edge from "./Edge";
 import Firefox from "./Firefox";
 import InternalExplorer from "./InternalExplorer";
+import Safari from "./Safari";
 
 export default class BrowserFactory {
     public static factory(type: BrowserType) {
@@ -20,6 +21,9 @@ export default class BrowserFactory {
                 break;
             case BrowserType.Edge:
                 browser = new Edge();
+                break;
+            case BrowserType.Safari:
+                browser = new Safari();
                 break;
         }
         return browser;
