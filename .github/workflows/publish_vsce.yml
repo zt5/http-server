@@ -20,7 +20,10 @@ jobs:
       - name: Install the dependencies
         run: npm i
 
-      - name: compile js
+      - name: Install vsce
+        run: npm i -g vsce
+
+      - name: Compile js
         run: npm run-script compile
 
       - name: Publish
