@@ -41,7 +41,7 @@ export default class HttpServer {
             this.httpServer.listen(this.port, () => {
                 let relativeUrl: string | undefined = undefined;
                 if (this.context.indexpath && this.httpSource) {
-                    relativeUrl = this.context.indexpath.replace(this.httpSource, "");
+                    relativeUrl = this.context.indexpath.replace(this.httpSource, "").replace(path.sep,"/");
                 }
                 if (relativeUrl) {
                     this.outputFun && this.outputFun(HttpMsgType.Url, `http://${ip}:${this.port}` + relativeUrl)

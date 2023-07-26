@@ -2,7 +2,7 @@
 	"name": "http-server",
 	"displayName": "Http Server",
 	"description": "在vscode中快速选择Chrome,Firefox,Microsoft Edge,Ie(仅在Windows平台有效),Safari(仅在Mac平台有效)浏览器打开html",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
