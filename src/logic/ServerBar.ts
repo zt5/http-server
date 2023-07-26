@@ -1,15 +1,16 @@
 import * as vscode from 'vscode';
 import { Command } from '../common/Command';
+import Context from '../common/Context';
 import { ServiceStatus } from "../common/define";
 import Listener from '../common/Listener';
 import { getLogger, Logger, showLog } from '../common/Logger';
-import Logic from './Logic';
 export default class ServerBar extends Listener {
     private statusBar: vscode.StatusBarItem;
     private _status = ServiceStatus.Free;
     private logger: Logger;
-    public constructor(private server: Logic, protected subscriptions: vscode.Disposable[]) {
+    public constructor(protected context: Context) {
         super();
+
         this.logger = getLogger(this);
         const barCommandId = 'http-server.showMenu';
         const pickItems = ["$(refresh) 重启", `$(output) 显示日志窗口`];
@@ -31,7 +32,7 @@ export default class ServerBar extends Listener {
         this.statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.statusBar.command = barCommandId;
         this.statusBar.show();
-        subscriptions.push(this.statusBar);
+        this.context.vsc.subscriptions.push(this.statusBar);
 
         this.updateView();
     }
@@ -53,8 +54,8 @@ export default class ServerBar extends Listener {
                 _statusTxt = `$(loading~spin) Http Server关闭中`;
                 break;
             case ServiceStatus.Running:
-                if (this.server && this.server.service && this.server.service.urlStr) {
-                    _statusTxt = `$(vm-active) ${this.server.service.urlStr}`;
+                if (this.context.server && this.context.url) {
+                    _statusTxt = `$(vm-active) ${this.context.url}`;
                 } else {
                     _statusTxt = `$(vm-active) Http Server运行中`;
                 }

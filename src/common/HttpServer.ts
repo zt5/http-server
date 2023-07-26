@@ -4,15 +4,16 @@ import * as net from "net";
 import * as path from "path";
 import * as url from "url";
 import { HttpMsgType, HttpOutPutFun } from "../common/define";
+import Context from "./Context";
 import Helper from "./Helper";
-import { getLogger, Logger } from "./Logger";
+import { Logger, getLogger } from "./Logger";
 export default class HttpServer {
     private httpServer: http.Server | undefined;
     private logger: Logger;
     private port: number = -1;
     private httpSource: string | undefined;
     private outputFun: HttpOutPutFun | undefined;
-    constructor() {
+    constructor(private context: Context) {
         this.logger = getLogger(this);
     }
     public async start(httpSource: string, outputFun?: HttpOutPutFun) {
@@ -38,7 +39,15 @@ export default class HttpServer {
             this.outputFun && this.outputFun(HttpMsgType.Error, "httpServer null");
         } else {
             this.httpServer.listen(this.port, () => {
-                this.outputFun && this.outputFun(HttpMsgType.Url, `http://${ip}:${this.port}`)
+                let relativeUrl: string | undefined = undefined;
+                if (this.context.indexpath && this.httpSource) {
+                    relativeUrl = this.context.indexpath.replace(this.httpSource, "");
+                }
+                if (relativeUrl) {
+                    this.outputFun && this.outputFun(HttpMsgType.Url, `http://${ip}:${this.port}` + relativeUrl)
+                } else {
+                    this.outputFun && this.outputFun(HttpMsgType.Url, `http://${ip}:${this.port}`)
+                }
             });
         }
     }
@@ -120,6 +129,8 @@ export default class HttpServer {
                     this.httpServer = undefined;
                     resolve();
                 });
+            }else{
+                resolve();
             }
         });
     }

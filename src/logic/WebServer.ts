@@ -1,20 +1,19 @@
 import * as path from "path";
-import { HttpMsgType, ServiceStatus } from "../common/define";
+import Context from "../common/Context";
 import HttpServer from '../common/HttpServer';
-import { getLogger, Logger, showLog } from "../common/Logger";
+import { Logger, getLogger, showLog } from "../common/Logger";
+import { HttpMsgType, ServiceStatus } from "../common/define";
 import Browser from "./impl/Browser";
 import BrowserFactory from "./impl/BrowserFactory";
-import Logic from "./Logic";
 
 export default class WebServer {
     private server: HttpServer;
-    private _urlStr: string | undefined;
     private _isDestroy = false;
     private logger: Logger;
     private browser: Browser | undefined;
-    constructor(public father: Logic) {
+    constructor(private context: Context) {
         this.logger = getLogger(this);
-        this.server = new HttpServer();
+        this.server = new HttpServer(context);
     }
     public async start() {
         showLog();
@@ -25,12 +24,12 @@ export default class WebServer {
     }
     private async _start() {
         this.logger.debug(`start`)
-        if (!this.father.prevType) {
+        if (!this.context.browser) {
             throw new Error(`命令参数prevType错误`);
         }
         await this.server.clear()
         if (this.browser) await this.browser.destroy();
-        this.browser = BrowserFactory.factory(this.father.prevType);
+        this.browser = BrowserFactory.factory(this.context.browser);
         if (!this.browser) {
             throw new Error(`不支持的浏览器`);
         } else {
@@ -40,13 +39,13 @@ export default class WebServer {
     }
     private exec() {
         if (this._isDestroy) return;
-        if (!this.father.indexPath) {
+        if (!this.context.indexpath) {
             throw new Error(`命令参数indexPath错误`);
         }
-        this.logger.debug(`index path: ${this.father.indexPath}`)
-        this.father.bar.status = ServiceStatus.Starting;
+        this.logger.debug(`index path: ${this.context.indexpath}`)
+        this.context.bar.status = ServiceStatus.Starting;
 
-        this.server.start(path.dirname(this.father.indexPath), (type: HttpMsgType, data: string) => {
+        this.server.start(path.dirname(this.context.indexpath), (type: HttpMsgType, data: string) => {
             switch (type) {
                 case HttpMsgType.Error:
                     this.logger.debug(data);
@@ -55,16 +54,16 @@ export default class WebServer {
                     this.logger.debug(data)
                     break;
                 case HttpMsgType.Exit:
-                    this.father.bar.status = ServiceStatus.Free;
+                    this.context.bar.status = ServiceStatus.Free;
                     this.logger.debug(`exit code: ${data}`);
                     break;
                 case HttpMsgType.Url:
-                    this._urlStr = data;
+                    this.context.url = data;
                     this.logger.debug(`url: ${data}`);
 
                     if (this.browser) {
-                        this.browser.run(this._urlStr);
-                        this.father.bar.status = ServiceStatus.Running;
+                        this.browser.run(this.context.url);
+                        this.context.bar.status = ServiceStatus.Running;
                     }
                     else this.logger.error(`browser is null`);
                     break;
@@ -82,8 +81,5 @@ export default class WebServer {
     }
     public get isDestroy() {
         return this._isDestroy;
-    }
-    public get urlStr() {
-        return this._urlStr;
     }
 }

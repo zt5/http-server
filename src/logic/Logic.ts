@@ -1,25 +1,19 @@
 import * as vscode from 'vscode';
 import { Command } from '../common/Command';
+import Context from '../common/Context';
 import { BrowserType } from '../common/define';
 import Listener from "../common/Listener";
 import { getLogger, Logger } from '../common/Logger';
-import ServerBar from './ServerBar';
 import WebServer from './WebServer';
 
 export default class Logic extends Listener {
-    private _webServer: WebServer;
-    private _bar: ServerBar;
     private logger: Logger;
-    private _indexPath: string | undefined;
-    private _prevType: BrowserType | undefined;
-    public constructor(protected subscriptions: vscode.Disposable[]) {
+    public constructor(protected context: Context) {
         super();
         this.logger = getLogger(this);
-
-
-        this._bar = new ServerBar(this, subscriptions);
-        this._webServer = new WebServer(this);
-
+        this.regCmd();
+    }
+    private regCmd() {
         this.addListener(vscode.commands.registerCommand(Command.OPEN_FIREFOX, (args) => {
             this.logger.debug(`call ${Command.OPEN_FIREFOX}`, args);
             this.startWebServer(args, BrowserType.FireFox);
@@ -58,51 +52,28 @@ export default class Logic extends Listener {
         }));
         this.addListener(vscode.commands.registerCommand(Command.SERVER_RESTART, (args: string[]) => {
             this.logger.debug(`call ${Command.SERVER_RESTART}`);
-            if (!this._indexPath) return;
-            this._webServer.destroy().then(() => {
-                this._webServer = new WebServer(this);
-                this._webServer.start();
+            if (!this.context.indexpath) return;
+            this.context.server.destroy().then(() => {
+                this.context.server = new WebServer(this.context);
+                this.context.server.start();
             })
         }));
-        // this.addListener(vscode.workspace.onDidChangeConfiguration(e => {
-        //     if (Helper.valConfIsChange(e, "firefoxType")) {
-
-        //     } 
-        // }))
     }
     private startWebServer(args: { fsPath: string }, type: BrowserType) {
         if (args && args.fsPath) {
-            this._indexPath = args.fsPath;
-            this._prevType = type;
-            this._webServer.start();
+            this.context.indexpath = args.fsPath;
+            this.context.browser = type;
+            this.context.server.start();
         }
-    }
-    public get prevType() {
-        return this._prevType;
-    }
-    public get indexPath() {
-        return this._indexPath;
-    }
-    public get service() {
-        return this._webServer;
-    }
-    public get urlStr() {
-        if (this._webServer) {
-            return this._webServer.urlStr;
-        }
-        return undefined;
-    }
-    public get bar() {
-        return this._bar;
     }
     public async destroy() {
         super.destroy();
         this.logger.debug("destroy");
-        if (this._bar) {
-            this._bar.destroy();
+        if (this.context.server) {
+            await this.context.server.destroy();
         }
-        if (this._webServer) {
-            await this._webServer.destroy();
+        if (this.context.bar) {
+            this.context.bar.destroy();
         }
     }
 }
